@@ -1,0 +1,13 @@
+.ssh/
+.gemini/
+.npm/
+.cache/
+.config/
+.docker/
+.bash_history
+.bashrc
+.profile
+.bash_logout
+GITHUB_TOKEN*
+*.json
+*.ps
