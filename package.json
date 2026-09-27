@@ -1,0 +1,6 @@
+     {
+       "scripts": {
+         "vercel-build": "node ./build.js"
+       }
+     }
+
