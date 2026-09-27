@@ -1,5 +1,4 @@
 name: Python Conda Package Workflow
-name: Python Conda Package Workflow
 on:
 push:
 branches: [ main, master ]
