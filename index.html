@@ -47,5 +47,24 @@
       </main>
       <footer id="about">My Security Lab · เรียนรู้เพื่อสร้างระบบที่ปลอดภัยกว่าเดิม</footer>
     </div>
+    <script>
+      (async () => {
+        try {
+          const [dashboardResponse, labsResponse] = await Promise.all([fetch('/api/dashboard'), fetch('/api/labs')])
+          if (!dashboardResponse.ok || !labsResponse.ok) return
+          const dashboard = await dashboardResponse.json()
+          const labs = await labsResponse.json()
+          const data = dashboard.data || {}
+          const metrics = document.querySelectorAll('.overview .metric')
+          if (metrics[0]) metrics[0].textContent = `${data.progress || 0}%`
+          if (metrics[1]) metrics[1].textContent = data.completedLabs || 0
+          if (metrics[2]) metrics[2].innerHTML = `${data.securityScore || 0}<span class="muted">/10</span>`
+          const progress = document.querySelector('.progress span')
+          if (progress) progress.style.width = `${data.progress || 0}%`
+          const labGrid = document.querySelector('.labs')
+          if (labGrid && Array.isArray(labs.data)) labGrid.innerHTML = labs.data.map((lab) => `<article class="card lab"><span class="tag">${lab.category}</span><h3>${lab.title}</h3><p>${lab.description}</p></article>`).join('')
+        } catch (error) { console.warn('[v0] API unavailable; showing static preview') }
+      })()
+    </script>
   </body>
 </html>
