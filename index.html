@@ -7,49 +7,43 @@
     <meta name="description" content="My Security Lab — พื้นที่ทดลองและเรียนรู้ด้านความปลอดภัยไซเบอร์" />
     <title>My Security Lab</title>
     <style>
-      :root { color-scheme: dark; --bg:#07111f; --panel:#0d1b2c; --line:#1d3850; --text:#eef7ff; --muted:#91a9bd; --cyan:#55d6ff; --green:#75e6b0; }
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap');
+      :root { color-scheme: dark; --bg:#07111f; --panel:#0d1b2c; --panel2:#101f33; --line:#1d3850; --text:#eef7ff; --muted:#91a9bd; --cyan:#55d6ff; --green:#75e6b0; --purple:#a78bfa; }
       * { box-sizing:border-box; }
-      body { margin:0; min-height:100vh; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--text); background:radial-gradient(circle at 78% 12%, #12334b 0, transparent 32%), var(--bg); }
-      .wrap { width:min(1120px, calc(100% - 40px)); margin:auto; }
-      header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; border-bottom:1px solid rgba(145,169,189,.18); }
-      .brand { display:flex; align-items:center; gap:12px; font-weight:750; letter-spacing:-.02em; }
+      body { margin:0; min-height:100vh; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--text); background:radial-gradient(circle at 78% 5%,#12334b 0,transparent 30%),var(--bg); }
+      .shell { width:min(1180px,calc(100% - 40px)); margin:auto; }
+      header { display:flex; align-items:center; justify-content:space-between; padding:22px 0; border-bottom:1px solid rgba(145,169,189,.18); }
+      .brand { display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:-.02em; }
       .mark { display:grid; place-items:center; width:36px; height:36px; border:1px solid var(--cyan); border-radius:10px; color:var(--cyan); font-weight:900; }
-      nav a { color:var(--muted); text-decoration:none; margin-left:24px; font-size:14px; }
-      nav a:hover { color:var(--text); }
-      main { padding:76px 0 56px; }
-      .eyebrow { color:var(--green); font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
-      h1 { max-width:720px; margin:14px 0 20px; font-size:clamp(42px, 7vw, 78px); line-height:.98; letter-spacing:-.065em; }
-      .lead { max-width:620px; color:var(--muted); font-size:18px; line-height:1.7; }
-      .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:32px; }
-      .button { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 18px; border-radius:8px; text-decoration:none; font-weight:750; font-size:14px; }
-      .primary { color:#03121d; background:var(--cyan); }
-      .secondary { color:var(--text); border:1px solid var(--line); background:rgba(13,27,44,.72); }
-      .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:72px; }
-      .card { padding:22px; background:rgba(13,27,44,.76); border:1px solid var(--line); border-radius:12px; }
-      .card strong { display:block; margin-bottom:10px; font-size:17px; }
-      .card p { margin:0; color:var(--muted); font-size:14px; line-height:1.65; }
-      .status { display:inline-flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; }
-      .dot { width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 12px var(--green); }
+      nav { display:flex; gap:22px; } nav a { color:var(--muted); text-decoration:none; font-size:14px; } nav a:hover { color:var(--text); }
+      main { padding:58px 0 48px; }
+      .eyebrow { color:var(--green); font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+      h1 { max-width:740px; margin:14px 0 18px; font-size:clamp(42px,7vw,76px); line-height:.98; letter-spacing:-.065em; }
+      .lead { max-width:650px; color:var(--muted); font-size:17px; line-height:1.7; }
+      .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
+      .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 17px; border-radius:8px; text-decoration:none; font-weight:750; font-size:14px; }
+      .primary { color:#03121d; background:var(--cyan); } .secondary { color:var(--text); border:1px solid var(--line); background:rgba(13,27,44,.72); }
+      .overview { display:grid; grid-template-columns:1.55fr 1fr 1fr 1fr; gap:14px; margin-top:60px; }
+      .card { padding:20px; background:rgba(13,27,44,.78); border:1px solid var(--line); border-radius:12px; }
+      .card h2,.card h3 { margin:0; font-size:15px; } .metric { margin-top:12px; font-size:30px; font-weight:800; letter-spacing:-.04em; } .muted { color:var(--muted); font-size:12px; }
+      .progress { height:7px; margin-top:15px; overflow:hidden; border-radius:99px; background:#1a3045; } .progress span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--cyan),var(--green)); }
+      .section-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin:42px 0 14px; } .section-head h2 { margin:0; font-size:22px; letter-spacing:-.03em; }
+      .labs { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; } .lab { min-height:170px; } .lab .tag { display:inline-block; margin-bottom:25px; color:var(--purple); font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; } .lab p { margin:10px 0 0; color:var(--muted); font-size:13px; line-height:1.6; }
+      .status { display:inline-flex; align-items:center; gap:7px; color:var(--muted); font-size:12px; } .dot { width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 12px var(--green); }
       footer { padding:20px 0 28px; color:#657d91; font-size:12px; border-top:1px solid rgba(145,169,189,.12); }
-      @media (max-width:700px) { .wrap { width:min(100% - 28px, 560px); } header { padding:18px 0; } nav { display:none; } main { padding:58px 0 38px; } .grid { grid-template-columns:1fr; margin-top:48px; } h1 { font-size:48px; } }
+      @media (max-width:760px) { .shell { width:min(100% - 28px,560px); } header { padding:18px 0; } nav { display:none; } main { padding:52px 0 36px; } h1 { font-size:48px; } .overview,.labs { grid-template-columns:1fr; } .overview { margin-top:44px; } .section-head { margin-top:34px; } }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <div class="brand"><span class="mark">SL</span><span>My Security Lab</span></div>
-        <nav aria-label="เมนูหลัก"><a href="#lab">Lab</a><a href="#about">เกี่ยวกับ</a></nav>
-      </header>
-      <main>
+    <div class="shell">
+      <header><div class="brand"><span class="mark">SL</span><span>My Security Lab</span></div><nav aria-label="เมนูหลัก"><a href="#dashboard">Dashboard</a><a href="#labs">Labs</a><a href="#about">เกี่ยวกับ</a></nav></header>
+      <main id="dashboard">
         <div class="eyebrow">Security research workspace</div>
         <h1>ทดลอง เรียนรู้ และยกระดับความปลอดภัย</h1>
-        <p class="lead">พื้นที่สำหรับรวบรวมแล็บ เครื่องมือ และบันทึกการเรียนรู้ด้าน cybersecurity อย่างเป็นระบบ เริ่มต้นจากพื้นฐาน แล้วค่อย ๆ ลงลึกไปสู่การป้องกันระบบจริง</p>
-        <div class="actions"><a class="button primary" href="#lab">เข้าสู่ Security Lab</a><a class="button secondary" href="#about">ดูรายละเอียด</a></div>
-        <section id="lab" class="grid" aria-label="ส่วนประกอบของ Security Lab">
-          <article class="card"><strong>Hands-on Labs</strong><p>โจทย์ทดลองที่ช่วยฝึกคิด วิเคราะห์ช่องโหว่ และออกแบบแนวทางแก้ไขอย่างปลอดภัย</p></article>
-          <article class="card"><strong>Knowledge Base</strong><p>สรุปแนวคิด เครื่องมือ และบทเรียนสำคัญที่ค้นหาและกลับมาทบทวนได้ง่าย</p></article>
-          <article class="card"><strong><span class="status"><span class="dot"></span>ระบบพร้อมใช้งาน</span></strong><p>หน้านี้ถูกกู้คืนแล้วจากปัญหา 404 และพร้อมเป็นจุดเริ่มต้นของโปรเจกต์</p></article>
-        </section>
+        <p class="lead">พื้นที่สำหรับจัดการแล็บ เครื่องมือ และบันทึกการเรียนรู้ด้าน cybersecurity อย่างเป็นระบบ เริ่มต้นจากพื้นฐาน แล้วค่อย ๆ ลงลึกไปสู่การป้องกันระบบจริง</p>
+        <div class="actions"><a class="button primary" href="#labs">เข้าสู่ Security Lab</a><a class="button secondary" href="#about">ดูรายละเอียด</a></div>
+        <section class="overview" aria-label="ภาพรวมการเรียนรู้"><article class="card"><h2>ความคืบหน้าหลักสูตร</h2><div class="metric">68%</div><div class="progress"><span style="width:68%"></span></div><p class="muted">เพิ่มขึ้น 12% จากสัปดาห์ที่แล้ว</p></article><article class="card"><h3>Labs ที่เสร็จแล้ว</h3><div class="metric">24</div><span class="status"><span class="dot"></span>กำลังเรียนต่อ</span></article><article class="card"><h3>คะแนนความปลอดภัย</h3><div class="metric">8.6<span class="muted">/10</span></div><span class="muted">จาก 31 แบบฝึกหัด</span></article><article class="card"><h3>Streak</h3><div class="metric">7 วัน</div><span class="muted">รักษาโมเมนตัมไว้</span></article></section>
+        <section id="labs"><div class="section-head"><h2>แล็บที่แนะนำ</h2><span class="muted">อัปเดตล่าสุดวันนี้</span></div><div class="labs"><article class="card lab"><span class="tag">Network</span><h3>วิเคราะห์ทราฟฟิกเบื้องต้น</h3><p>ฝึกอ่านแพ็กเก็ตและแยกสัญญาณผิดปกติจากทราฟฟิกปกติในสภาพแวดล้อมจำลอง</p></article><article class="card lab"><span class="tag">Web Security</span><h3>ป้องกันช่องโหว่ Web API</h3><p>เรียนรู้การตรวจสอบอินพุต การกำหนดสิทธิ์ และแนวทางป้องกัน endpoint ที่สำคัญ</p></article><article class="card lab"><span class="tag">Blue Team</span><h3>สร้าง Incident Playbook</h3><p>ออกแบบขั้นตอนรับมือเหตุการณ์ ตั้งแต่ตรวจพบ แจ้งเตือน กักกัน จนถึงการฟื้นฟูระบบ</p></article></div></section>
       </main>
       <footer id="about">My Security Lab · เรียนรู้เพื่อสร้างระบบที่ปลอดภัยกว่าเดิม</footer>
     </div>
