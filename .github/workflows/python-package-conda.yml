@@ -16,7 +16,7 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v5
-        with:
+        with: aae7937
           python-version: '3.10'
 
       - name: Install dependencies
