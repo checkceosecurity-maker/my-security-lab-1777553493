@@ -1,1 +1,34 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>เข้าสู่ระบบ AG2</title><style>body{font-family:system-ui;background:#0b1020;color:white;display:grid;place-items:center;min-height:100vh}.box{background:#141f39;padding:32px;border-radius:14px;width:min(380px,90%)}input,button{display:block;width:100%;box-sizing:border-box;padding:12px;margin:10px 0;border-radius:8px}input{background:#0b1020;color:white;border:1px solid #45609b}button{background:#263c73;color:white;border:0}#error{color:#ff8888}</style></head><body><div class="box"><h1>AG2 Platform</h1><form id="form"><input id="email" type="email" placeholder="Email" value="demo@ag2.local" required><input id="password" type="password" placeholder="Password" value="demo123" required><button>เข้าสู่ระบบ</button></form><p id="error"></p></div><script src="assets/config.js"></script><script>form.onsubmit=async e=>{e.preventDefault();error.textContent='';try{const r=await apiClient.post('/api/auth/login',{email:email.value,password:password.value});setAuthToken(r.access_token);location.href='/'}catch(x){error.textContent='เข้าสู่ระบบไม่สำเร็จ'}}</script></body></html>
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>เข้าสู่ระบบ AG2</title>
+  <style>body{font-family:system-ui,"Noto Sans Thai",sans-serif;background:#0b1020;color:#fff;display:grid;place-items:center;min-height:100vh}.box{background:#141f39;padding:32px;border-radius:14px;width:min(420px,90%)}button{width:100%;padding:12px;background:#263c73;color:#fff;border:0;border-radius:8px;cursor:pointer}.error{color:#ff8888;margin-top:12px}</style>
+</head>
+<body><div class="box"><h1>AG2 Platform</h1><p>เข้าสู่ระบบด้วย Auth0</p><button id="login">เข้าสู่ระบบ / Sign in</button><div id="error" class="error"></div></div>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+<script src="assets/config.js"></script>
+<script>
+let auth0Client;
+(async () => {
+  try {
+    auth0Client = await auth0.createAuth0Client({
+      domain: AUTH0_DOMAIN,
+      clientId: AUTH0_CLIENT_ID,
+      authorizationParams: { audience: AUTH0_AUDIENCE, redirect_uri: AUTH0_REDIRECT_URI }
+    });
+    if (location.search.includes('code=') && location.search.includes('state=')) {
+      await auth0Client.handleRedirectCallback();
+      history.replaceState({}, document.title, '/login.html');
+    }
+    if (await auth0Client.isAuthenticated()) {
+      window.setAuthToken(await auth0Client.getTokenSilently({ authorizationParams: { audience: AUTH0_AUDIENCE } }));
+      location.href = '/';
+    }
+  } catch (error) { document.getElementById('error').textContent = error.message; }
+})();
+document.getElementById('login').onclick = async () => {
+  if (!auth0Client) return;
+  await auth0Client.loginWithRedirect({ authorizationParams: { audience: AUTH0_AUDIENCE, redirect_uri: AUTH0_REDIRECT_URI } });
+};
+</script></body></html>
