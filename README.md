@@ -1,32 +1,16 @@
 # AG2 Platform
 
-This repository now includes a small FastAPI API layer for the static dashboard.
-It provides working demo endpoints for agents, tasks, tools, members, health, and chat.
-The data is intentionally in-memory for the prototype; restart/redeploy resets it.
+Dashboard + FastAPI + SQLAlchemy database + JWT login.
 
-## Run locally
+## Run
 
 ```bash
 python -m venv .venv
-# macOS/Linux: source .venv/bin/activate
-# Windows: .venv\\Scripts\\activate
+source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn api.index:app --reload
 ```
 
-Open the API docs at `http://localhost:8000/docs`.
+Open `http://localhost:8000`, then use `demo@ag2.local` / `demo123`.
 
-## Endpoints
-
-- `GET /api/health`
-- `GET|POST /api/agents`
-- `GET|POST /api/tasks`
-- `GET /api/tools`
-- `GET /api/members`
-- `POST /api/chat`
-
-## Production gaps
-
-Authentication, a persistent database, job workers, and a real model provider still need
-separate configuration before this is used with sensitive or production data. Set
-`FRONTEND_ORIGIN` to the exact frontend origin when deploying.
+Set `DATABASE_URL` to a PostgreSQL connection string for production. SQLite is used by default locally. Set a strong `SECRET_KEY` and exact `FRONTEND_ORIGIN` in deployment settings. The API creates its tables automatically on startup; use migrations before production schema changes.

@@ -1,0 +1,1 @@
+const nav={Home:[['Overview','index.html']],Agents:[['Agents','pages/agents-list.html'],['Create agent','pages/agents-create.html']],Tasks:[['Tasks','pages/tasks-board.html'],['Create task','pages/tasks-create.html']],Tools:[['Tools','pages/tools-library.html']],People:[['Members','pages/people-members.html']]};
